@@ -1,44 +1,79 @@
-function Update-Sqlite {
-	[CmdletBinding()]
+function Update-Sqlite
+{
+   <#
+      .SYNOPSIS
+      Describe purpose of "Update-Sqlite" in 1-2 sentences.
 
-	param(
-		[Parameter()]
-		[string]
-		$version = '1.0.112',
-	
-		[Parameter()]
-		[ValidateSet('linux-x64','osx-x64','win-x64','win-x86')]
-		[string]
-		$OS
-	)
-	
-	Process {
-	write-verbose "Creating build directory"
-	New-Item -ItemType directory build
-	Set-Location build
-	
-	$file = "system.data.sqlite.core.$version"
+      .DESCRIPTION
+      Add a more complete description of what the function does.
 
-	write-verbose "downloading files from nuget"
-	$dl = @{
-		uri = "https://www.nuget.org/api/v2/package/System.Data.SQLite.Core/$version"
-		outfile = "$file.nupkg"
-	}
-	Invoke-WebRequest @dl
+      .PARAMETER version
+      Describe parameter -version.
 
-	write-verbose "unpacking and copying files to module directory"
-	Expand-Archive $dl.outfile
+      .PARAMETER OS
+      Describe parameter -OS.
 
-	$InstallPath = (get-module PSSQlite).path.TrimEnd('PSSQLite.psm1')
-	copy-item $file/lib/netstandard2.0/System.Data.SQLite.dll $InstallPath/core/$os/
-	copy-item $file/runtimes/$os/native/netstandard2.0/SQLite.Interop.dll $InstallPath/core/$os/
+      .EXAMPLE
+      Update-Sqlite -version Value -OS Value
+      Describe what this call does
 
-	write-verbose "removing build folder"
-	Set-location ..
-	remove-item ./build -recurse
-	write-verbose "complete"
+      .NOTES
+      Place additional notes here.
 
-	Write-Warning "Please reimport the module to use the latest files"
-	}
+      .LINK
+      URLs to related sites
+      The first link is opened by Get-Help -Online Update-Sqlite
+
+      .INPUTS
+      List of input types that are accepted by this function.
+
+      .OUTPUTS
+      List of output types produced by this function.
+   #>
+
+
+   [CmdletBinding(ConfirmImpact = 'None')]
+
+   param(
+      [Parameter()]
+      [string]
+      $version = '1.0.112',
+      [Parameter()]
+      [ValidateSet('linux-x64','osx-x64','win-x64','win-x86')]
+      [string]
+      $OS
+   )
+
+   Process {
+      Write-Verbose -Message 'Creating build directory'
+
+      New-Item -ItemType directory -Path build
+      Set-Location -Path build
+
+      $file = ('system.data.sqlite.core.{0}' -f $version)
+
+      Write-Verbose -Message 'downloading files from nuget'
+
+      $dl = @{
+         uri     = ('https://www.nuget.org/api/v2/package/System.Data.SQLite.Core/{0}' -f $version)
+         outfile = ('{0}.nupkg' -f $file)
+      }
+      Invoke-WebRequest @dl
+
+      Write-Verbose 'unpacking and copying files to module directory'
+
+      Expand-Archive $dl.outfile
+      $InstallPath = (Get-Module PSSQlite).path.TrimEnd('PSSQLite.psm1')
+      Copy-Item $file/lib/netstandard2.0/System.Data.SQLite.dll -Destination $InstallPath/core/$OS/
+      Copy-Item $file/runtimes/$OS/native/netstandard2.0/SQLite.Interop.dll -Destination $InstallPath/core/$OS/
+
+      Write-Verbose 'removing build folder'
+
+      Set-Location ..
+      Remove-Item ./build -Recurse
+
+      Write-Verbose 'complete'
+
+      Write-Warning 'Please reimport the module to use the latest files'
+   }
 }
-

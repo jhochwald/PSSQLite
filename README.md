@@ -1,29 +1,39 @@
 [![Build status](https://ci.appveyor.com/api/projects/status/7pm5cjeoqx09i3co/branch/master?svg=true)](https://ci.appveyor.com/project/RamblingCookieMonster/pssqlite)
 
-PSSQLite PowerShell Module
-=============
+# Forked PSSQLite PowerShell Module
 
-This is a PowerShell module for working with SQLite.  It uses similar syntax to the [Invoke-Sqlcmd2](https://github.com/RamblingCookieMonster/PowerShell/blob/master/Invoke-Sqlcmd2.ps1) function from Chad Miller et al.
+This is a PowerShell module for working with SQLite. It uses similar syntax to the [Invoke-Sqlcmd2](https://github.com/RamblingCookieMonster/PowerShell/blob/master/Invoke-Sqlcmd2.ps1) function from Chad Miller et al.
 
 This covers limited functionality; contributions to this function or additional functions would be welcome!
 
 Caveats:
-* Minimal testing.
-* Today was my first time working with SQLite
+
+- Minimal testing.
+- Today was my first time working with SQLite
+
+## Why the fork?
+
+After I started my own PowerShell module, I decided to adopt a lot of the great work from Warren Frame, Chad Miller, Justin Dearing, Paul Bryson, Joel Bennett, and Dave Wyatt.
+
+This repository contains the changes I made to the base module of Warren Frame a/k/a RamblingCookieMonster.
 
 ## Functionality
 
 Create a SQLite database and table:
-  * ![Create a SQLite database and table](/Media/Create.png)
+
+- ![Create a SQLite database and table](/Media/Create.png)
 
 Query a SQLite database, using parameters:
-  * ![Query a SQLite database](/Media/Query.png)
+
+- ![Query a SQLite database](/Media/Query.png)
 
 Create a SQLite connection, use it for subsequent queries:
-  * ![Create a SQLite connection, use it](/Media/Connection.png)
+
+- ![Create a SQLite connection, use it](/Media/Connection.png)
 
 Insert large quantities of data quickly with transactions ([why?](http://www.sqlite.org/faq.html#q19)):
-  * ![Insert large quantities of data quickly](/Media/Transaction.png)
+
+- ![Insert large quantities of data quickly](/Media/Transaction.png)
 
 ## Instructions
 
@@ -86,8 +96,8 @@ Insert large quantities of data quickly with transactions ([why?](http://www.sql
 
 This isn't a fully featured module or function.
 
-I'm planning to write about using SQL from a systems administrator or engineer standpoint.  I personally stick to [MSSQL and Invoke-Sqlcmd2](https://ramblingcookiemonster.wordpress.com/2014/03/12/sql-for-powershell-for-sql-newbies/), but want to provide an abstracted means to perform this without the prerequisite of an accessible MSSQL instance.
+I'm planning to write about using SQL from a systems administrator or engineer standpoint. I personally stick to [MSSQL and Invoke-Sqlcmd2](https://ramblingcookiemonster.wordpress.com/2014/03/12/sql-for-powershell-for-sql-newbies/), but want to provide an abstracted means to perform this without the prerequisite of an accessible MSSQL instance.
 
-Check out Jim Christopher's [SQLite PowerShell Provider](https://psqlite.codeplex.com/).  It offers more functionality and flexibility than this repository.
+Check out Jim Christopher's [SQLite PowerShell Provider](https://psqlite.codeplex.com/). It offers more functionality and flexibility than this repository.
 
 Credit to Chad Miller, Justin Dearing, Paul Bryson, Joel Bennett, and Dave Wyatt for the code carried over from Invoke-Sqlcmd2.
